@@ -14,6 +14,10 @@ import java.util.Calendar
 import scala.io.Source
 import java.sql.DriverManager
 import java.sql.Connection
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.FileSystem
+import org.apache.hadoop.fs.Path
+import java.io.PrintWriter
 
 object read_hdfs {
 
@@ -38,7 +42,12 @@ object read_hdfs {
 			
 			var cci_connection:Connection = null
 			var tx_connection:Connection = null
-			
+			val write_conf = new Configuration()
+	    write_conf.set("fs.defaultFS", "hdfs://nameservice1/a")
+	    val fs= FileSystem.get(write_conf)
+      val output = fs.create(new Path("/tmp/mySample.txt"))
+      val writer = new PrintWriter(output)
+	    
 			Class.forName(driver)
 			
 			cci_connection = DriverManager.getConnection(url_cci, username_cci, password_cci)
@@ -56,10 +65,12 @@ object read_hdfs {
 			     while ( cciCount.next() ) {
                   val host_cci = cciCount.getString(1)
 		              println(host_cci)
+		              writer.write(host_cci)
            }
 			  			     while ( txCount.next() ) {
                   val host_tx = txCount.getString(1)
 		              println(host_tx)
+		              writer.write(host_tx)
            }
 			  
 			}
