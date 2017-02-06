@@ -25,7 +25,7 @@ object read_hdfs {
 			val sc = new SparkContext(conf)
 			val sql = new org.apache.spark.sql.SQLContext(sc)
 
-			import sqlContext.implicits._
+			import sql.implicits._
 
 			val url_cci = "jdbc:oracle:thin:@50.112.133.49:1521:a11"
 			val driver = "oracle.jdbc.driver.OracleDriver"
