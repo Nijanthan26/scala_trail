@@ -1,6 +1,5 @@
 
 import org.apache.spark.SparkContext
-import com.lineage.RowHash
 import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.Row
 import java.security.MessageDigest
@@ -21,7 +20,7 @@ object read_hdfs {
 
   def main(args: Array[String]) {
     
-	    val conf = new sparkConf().setAppName("pull")
+	    val conf = new SparkConf().setAppName("pull")
 			val sc = new SparkContext(conf)
 			val sql = new org.apache.spark.sql.SQLContext(sc)
 
