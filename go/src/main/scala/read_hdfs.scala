@@ -14,7 +14,6 @@ import java.util.Calendar
 import scala.io.Source
 import java.sql.DriverManager
 import java.sql.Connection
-import oracle.jdbc.driver.OracleDriver
 
 object read_hdfs {
 
