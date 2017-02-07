@@ -71,6 +71,7 @@ object read_hdfs {
            }
 			  			     while ( txCount.next() ) {
                   val host_tx = txCount.getString(1)
+                  println(host_tx)
 		              //output.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
                    writer.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
 		              
