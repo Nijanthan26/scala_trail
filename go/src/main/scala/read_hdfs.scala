@@ -66,7 +66,7 @@ object read_hdfs {
 			  val txColumn = statement_tx.executeQuery("select COLUMN_NAME from all_tab_columns where table_name= '"+TAB+"' and OWNER = 'DELFOUR' ORDER BY COLUMN_ID;")
 			  
 			     while ( txColumn.next() ) {
-                  val colList = txColumn.getString("COLUMN_NAME")
+                  val colList = txColumn.getString(1)
 		              println("column name ="+colList)
 		              //output.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
 		              // writer"Column name.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
