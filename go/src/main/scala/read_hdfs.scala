@@ -63,7 +63,7 @@ object read_hdfs {
 			  val cciColumn = statement_cci.executeQuery("select count(*) from DELFOUR.C_DOC_MAN")
 			//  val txColumn = statement_tx.executeQuery("select count(*) from DELFOUR."+TAB)
 			  
-			  val txColumn = statement_tx.executeQuery("select COLUMN_NAME from all_tab_columns where table_name= 'C_DOC_MAN' and OWNER = 'DELFOUR' ORDER BY COLUMN_ID;")
+			  val txColumn = statement_tx.executeQuery("select COLUMN_NAME from all_tab_columns where table_name="C_DOC_MAN" and OWNER ="DELFOUR" ORDER BY COLUMN_ID;")
 			  
 			     while ( txColumn.next() ) {
                   val colList = txColumn.getString(1)
