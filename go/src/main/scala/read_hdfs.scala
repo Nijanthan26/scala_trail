@@ -43,7 +43,7 @@ object read_hdfs {
 			var cci_connection:Connection = null
 			var tx_connection:Connection = null
 			val write_conf = new Configuration()
-	    write_conf.set("fs.defaultFS", "hdfs://nameservice1/a")
+	    write_conf.set("fs.defaultFS", "hdfs://nameservice1/")
 	    val fs= FileSystem.get(write_conf)
       val output = fs.create(new Path("/tmp/mySample.txt"))
       val writer = new PrintWriter(output)
