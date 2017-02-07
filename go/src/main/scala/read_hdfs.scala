@@ -57,20 +57,20 @@ object read_hdfs {
 			val statement_cci = cci_connection.createStatement()
 		  val statement_tx = tx_connection.createStatement()
 			
-			for (TAB <- Source.fromFile(tableName).getLines){
+		//	for (TAB <- Source.fromFile(tableName).getLines){
 			  
 
-			  val cciColumn = statement_cci.executeQuery("select count(*) from DELFOUR."+TAB)
+			  val cciColumn = statement_cci.executeQuery("select count(*) from DELFOUR.C_DOC_MAN")
 			//  val txColumn = statement_tx.executeQuery("select count(*) from DELFOUR."+TAB)
 			  
-			  val txColumn = statement_tx.executeQuery("select COLUMN_NAME from all_tab_columns where table_name= '"+TAB+"' and OWNER = 'DELFOUR' ORDER BY COLUMN_ID;")
+			  val txColumn = statement_tx.executeQuery("select COLUMN_NAME from all_tab_columns where table_name= 'C_DOC_MAN' and OWNER = 'DELFOUR' ORDER BY COLUMN_ID;")
 			  
 			     while ( txColumn.next() ) {
                   val colList = txColumn.getString(1)
 		              println("column name ="+colList)
 		              //output.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
 		              // writer"Column name.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
-           }
+      }
 			  		/*	     while ( txCount.next() ) {
                   val host_tx = txCount.getString(1)
                   println(host_tx)
@@ -79,7 +79,7 @@ object read_hdfs {
 		              
            }*/
 			  
-			}
+			//}
 			
 	    cci_connection.close()
 	    tx_connection.close()
