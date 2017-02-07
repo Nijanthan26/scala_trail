@@ -47,7 +47,7 @@ object read_hdfs {
 	    write_conf.set("fs.defaultFS", "hdfs://nameservice1:8020")
 	    val fs= FileSystem.get(write_conf)
       val output = fs.create(new Path("/tmp/mySample.txt"))
-      //val writer = new PrintWriter(output)
+      val writer = new PrintWriter(output)
 	    
 			Class.forName(driver)
 			
@@ -66,11 +66,13 @@ object read_hdfs {
 			     while ( cciCount.next() ) {
                   val host_cci = cciCount.getString(1)
 		              println(host_cci)
-		              output.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
+		              //output.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
+		               writer.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
            }
 			  			     while ( txCount.next() ) {
                   val host_tx = txCount.getString(1)
-		              output.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
+		              //output.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
+                   writer.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
 		              
            }
 			  
