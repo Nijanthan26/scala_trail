@@ -18,6 +18,7 @@ import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.FileSystem
 import org.apache.hadoop.fs.Path
 import java.io.PrintWriter
+import scala.compat.Platform.EOL
 
 object read_hdfs {
 
@@ -65,11 +66,11 @@ object read_hdfs {
 			     while ( cciCount.next() ) {
                   val host_cci = cciCount.getString(1)
 		              println(host_cci)
-		              output.write(host_cci.getBytes)
+		              output.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
            }
 			  			     while ( txCount.next() ) {
                   val host_tx = txCount.getString(1)
-		              output.write(host_tx.getBytes)
+		              output.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
 		              
            }
 			  
