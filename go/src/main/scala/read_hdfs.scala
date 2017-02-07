@@ -60,22 +60,24 @@ object read_hdfs {
 			for (TAB <- Source.fromFile(tableName).getLines){
 			  
 
-			  val cciCount = statement_cci.executeQuery("select count(*) from DELFOUR."+TAB)
-			  val txCount = statement_tx.executeQuery("select count(*) from DELFOUR."+TAB)
+			  val cciColumn = statement_cci.executeQuery("select count(*) from DELFOUR."+TAB)
+			//  val txColumn = statement_tx.executeQuery("select count(*) from DELFOUR."+TAB)
 			  
-			     while ( cciCount.next() ) {
-                  val host_cci = cciCount.getString(1)
-		              println(host_cci)
+			  val txColumn = statement_tx.executeQuery("select COLUMN_NAME from all_tab_columns where table_name= '"+TAB+"' and OWNER = 'DELFOUR' ORDER BY COLUMN_ID;")
+			  
+			     while ( txColumn.next() ) {
+                  val colList = txColumn.getString("COLUMN_NAME")
+		              println("column name ="+colList)
 		              //output.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
-		               writer.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
+		              // writer"Column name.write("CCI Table "+TAB+" Count :"+host_cci.getBytes+EOL)
            }
-			  			     while ( txCount.next() ) {
+			  		/*	     while ( txCount.next() ) {
                   val host_tx = txCount.getString(1)
                   println(host_tx)
 		              //output.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
                    writer.write("TX Table "+TAB+" Count :"+host_tx.getBytes+EOL)
 		              
-           }
+           }*/
 			  
 			}
 			
