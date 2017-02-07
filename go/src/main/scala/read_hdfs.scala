@@ -43,10 +43,10 @@ object read_hdfs {
 			var cci_connection:Connection = null
 			var tx_connection:Connection = null
 			val write_conf = new Configuration()
-	    write_conf.set("fs.defaultFS", "hdfs://nameservice1/")
+	    write_conf.set("fs.defaultFS", "hdfs://nameservice1:8020")
 	    val fs= FileSystem.get(write_conf)
       val output = fs.create(new Path("/tmp/mySample.txt"))
-      val writer = new PrintWriter(output)
+      //val writer = new PrintWriter(output)
 	    
 			Class.forName(driver)
 			
@@ -65,12 +65,12 @@ object read_hdfs {
 			     while ( cciCount.next() ) {
                   val host_cci = cciCount.getString(1)
 		              println(host_cci)
-		              writer.write(host_cci)
+		              output.write(host_cci.getBytes)
            }
 			  			     while ( txCount.next() ) {
                   val host_tx = txCount.getString(1)
-		              println(host_tx)
-		              writer.write(host_tx)
+		              output.write(host_tx.getBytes)
+		              
            }
 			  
 			}
