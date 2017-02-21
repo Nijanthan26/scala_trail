@@ -24,8 +24,8 @@ object go {
     
     val fs = FileSystem.get(sc.hadoopConfiguration)
     
-    val dirSize = fs.getContentSummary(/user/hive/warehouse/hj_t_item_master).getLength
-    val fileNum = dirSize/(5 * 1024 * 1024)  
+    //val dirSize = fs.getContentSummary(/user/hive/warehouse/hj_t_item_master).getLength
+    //val fileNum = dirSize/(5 * 1024 * 1024)  
 
      
    // val sqlContext = new org.apache.spark.sql.SQLContext(sc)
@@ -34,7 +34,7 @@ object go {
     
     val dfProc = hiveContext.sql("select * from antuit_stage.hj_t_item_master")
     
-    dfProc.coalesce(fileNum).write.format("orc").saveAsTable("default.hj_t_bmm_dummy")
+    dfProc.coalesce(10).write.format("orc").saveAsTable("default.hj_t_bmm_dummy")
 
 
    } 
