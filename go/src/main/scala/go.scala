@@ -34,13 +34,12 @@ object go {
     val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     
-        val hjSource = sqlContext.load("jdbc", 
-  Map(
-  "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
-  "url" -> "jdbc:sqlserver://192.168.100.223:1433;database=AAD",
-  "user" -> "readonly",
-  "password" -> "HJ#ric1!",
-  "dbtable" -> sourceTable))
+val hjSource = sqlContext.read.format("jdbc").
+option("url", "jdbc:sqlserver://192.168.100.223:1433;database=AAD").
+option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
+option("dbtable", sourceTable).
+option("user", "readonly").
+option("password", "HJ#ric1!").load()
       
    val DF = hiveContext.sql("SELECT * FROM antuit_stage."+table)
    //val OldDF = hiveContext.sql("SELECT * FROM antuit_stage."+table)
