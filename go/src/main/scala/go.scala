@@ -34,8 +34,8 @@ object go {
     val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     
-val hjSource = sqlContext.read.format("jdbc").
-option("url", "jdbc:sqlserver://192.168.100.223:1433;database=AAD").
+val hjSource = sqlContext.read.format("jdbc")
+.option("url", "jdbc:sqlserver://192.168.100.223:1433;database=AAD").
 option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
 option("dbtable", sourceTable).
 option("user", "readonly").
