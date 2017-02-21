@@ -29,7 +29,7 @@ object go {
     
     
     
-    val dirSize = fs.getContentSummary(/user/hive/warehouse/hj_t_item_master).getLength
+   // val dirSize = fs.getContentSummary(/user/hive/warehouse/hj_t_item_master).getLength
     //val fileNum = dirSize/(5 * 1024 * 1024)  
     
     
