@@ -7,6 +7,7 @@ import org.apache.spark.SparkContext._
 import org.apache.spark.sql._
 import org.apache.spark.sql.SQLContext
 import com.microsoft.sqlserver.jdbc.SQLServerDriver
+import org.apache.spark.sql.hive.HiveContext
 
 object go {
   
