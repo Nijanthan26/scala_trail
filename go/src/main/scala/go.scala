@@ -32,8 +32,9 @@ object go {
     import org.apache.spark.SparkContext._
     
     val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
-   
-        val hjSource = hiveContext.load("jdbc", 
+    val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+    
+        val hjSource = sqlContext.load("jdbc", 
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://192.168.100.223:1433;database=AAD",
