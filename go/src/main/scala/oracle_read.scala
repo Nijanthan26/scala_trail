@@ -1,5 +1,0 @@
-
-
-object oracle_read {
-  
-}
