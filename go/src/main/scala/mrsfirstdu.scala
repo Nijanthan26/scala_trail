@@ -5,6 +5,7 @@ import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 
 import org.apache.spark.sql._
+import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.SQLContext
 import com.microsoft.sqlserver.jdbc.SQLServerDriver
 import org.apache.spark.storage.StorageLevel._
@@ -13,7 +14,7 @@ import org.apache.spark.storage.StorageLevel._
 object mrsfirstdu {
   
   
-    def addDeltaFirstTime(deltaDf: Dataset[Row]): Dataset[Row] = {
+    def addDeltaFirstTime(deltaDf: DataFrame): DataFrame = {
 			
 	            import org.apache.spark.sql.functions._ 
 							deltaDf.withColumn("sequence", monotonically_increasing_id) 
