@@ -48,7 +48,7 @@ object mrsfirstdu {
   "password" -> "R3@60n1Y$",
   "dbtable" -> sourceTable)).load()
   
-   /*   val mrsSourceMain = sqlContext.load("jdbc", 
+   /*val mrsSourceMain = sqlContext.load("jdbc", 
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0266SQLDBFacilityDataMain_001",
