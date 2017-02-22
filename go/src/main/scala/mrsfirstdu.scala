@@ -31,21 +31,22 @@ object mrsfirstdu {
 		val db = dbtable.substring(0,dbtable.indexOf("."))
 		val sourceTable =  table.substring(6)
     
-    val mrsSource09 = sqlContext.load("jdbc", 
+    val mrsSource09 = sqlContext.read.format("jdbc").options( 
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001",
   "user" -> "readonly",
   "password" -> "R3@60n1Y$",
-  "dbtable" -> sourceTable))
+  "dbtable" -> sourceTable)).load()
   
-      val mrsSource61 = sqlContext.load("jdbc", 
+  
+      val mrsSource61 = sqlContext.read.format("jdbc").options(  
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0002SQLDBFacilityData61_001",
   "user" -> "readonly",
   "password" -> "R3@60n1Y$",
-  "dbtable" -> sourceTable))
+  "dbtable" -> sourceTable)).load()
   
    /*   val mrsSourceMain = sqlContext.load("jdbc", 
   Map(
