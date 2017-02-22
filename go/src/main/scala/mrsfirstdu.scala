@@ -33,7 +33,7 @@ object mrsfirstdu {
     
     val mrsSource09 = sqlContext.read.format("jdbc").options( 
   Map(
-  "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+  //"driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001",
   "user" -> "readonly",
   "password" -> "R3@60n1Y$",
@@ -42,7 +42,7 @@ object mrsfirstdu {
   
       val mrsSource61 = sqlContext.read.format("jdbc").options(  
   Map(
-  "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+  //"driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0002SQLDBFacilityData61_001",
   "user" -> "readonly",
   "password" -> "R3@60n1Y$",
