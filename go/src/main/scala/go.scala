@@ -25,12 +25,6 @@ object go {
 		val db = dbtable.substring(0,dbtable.indexOf("."))
     
 		val sourceTable =  table.substring(3)
-    
-    //sc.hadoopConfiguration.setInt( "mapreduce.input.fileinputformat.split.minsize",5242880)
-    //sc.hadoopConfiguration.setInt( "mapreduce.input.fileinputformat.split.maxsize",5242880)
-    
-    import org.apache.spark.SparkContext._
-    
     val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
     
