@@ -31,9 +31,10 @@ object mrsfirstdu {
 		val db = dbtable.substring(0,dbtable.indexOf("."))
 		val sourceTable =  table.substring(6)
     
+		/* 
     val mrsSource09 = sqlContext.read.format("jdbc").options( 
   Map(
-  //"driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+  "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001",
   "user" -> "readonly",
   "password" -> "R3@60n1Y$",
@@ -42,13 +43,13 @@ object mrsfirstdu {
   
       val mrsSource61 = sqlContext.read.format("jdbc").options(  
   Map(
-  //"driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+  "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0002SQLDBFacilityData61_001",
   "user" -> "readonly",
   "password" -> "R3@60n1Y$",
   "dbtable" -> sourceTable)).load()
   
-   /*val mrsSourceMain = sqlContext.load("jdbc", 
+   val mrsSourceMain = sqlContext.load("jdbc", 
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
   "url" -> "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0266SQLDBFacilityDataMain_001",
@@ -56,6 +57,16 @@ object mrsfirstdu {
   "password" -> "R3@60n1Y$",
   "dbtable" -> table))
   */
+		
+	val url = "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001"
+  val username = "readonly"
+	val password = "R3@60n1Y$"
+	
+	val prop = new java.util.Properties
+	
+						prop.setProperty("user",username)
+					prop.setProperty("password",password)
+	
    val mrsDf1 = mrsSource09.unionAll(mrsSource61)
    
   // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
