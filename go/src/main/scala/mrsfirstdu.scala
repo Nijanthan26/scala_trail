@@ -81,7 +81,7 @@ val SourcSeq = source.drop("sequence")
   // val mrsDf1 = mrsSource09
    
   // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
-      mrsSource09.count()
+    //  mrsSource09.count()
    
 	//	val res = addDeltaFirstTime(mrsDf1)
 	//	res.count()
@@ -90,6 +90,7 @@ val SourcSeq = source.drop("sequence")
     val schema = StructType(SourcSeq.schema.fields)
     val df = mrsSource09.rdd
 		val srcDelta = hiveContext.createDataFrame(df,schema )
+	//		val srcDelta = sqlContext.createDataFrame(df,schema )
 		
 		val res = srcDelta.except(SourcSeq)
 		
