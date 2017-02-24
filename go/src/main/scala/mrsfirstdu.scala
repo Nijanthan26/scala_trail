@@ -89,7 +89,7 @@ val SourcSeq = source.drop("sequence")
 		import org.apache.spark.sql.types._
     val schema = StructType(SourcSeq.schema.fields)
     val df = mrsSource09.rdd
-		val srcDelta = sqlContext.createDataFrame(df,schema )
+		val srcDelta = hiveContext.createDataFrame(df,schema )
 		
 		val res = srcDelta.except(SourcSeq)
 		
