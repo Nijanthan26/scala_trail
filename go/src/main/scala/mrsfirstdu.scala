@@ -39,9 +39,9 @@ option("dbtable", "adj_trn").
 option("user", "readonly").
 option("password", "R3@60n1Y$").load() 
 
-//val source=hiveContext.sql("select * from anutit_stage.mrs15_adj_trn")
+val source=hiveContext.sql("select * from antuit_stage.mrs15_adj_trn_temp")
 
-// val SourcSeq = source.drop("sequence")
+val SourcSeq = source.drop("sequence")
 		 /*
     val mrsSource09 = sqlContext.read.format("jdbc").options( 
   Map(
@@ -86,9 +86,16 @@ option("password", "R3@60n1Y$").load()
 	//	val res = addDeltaFirstTime(mrsDf1)
 	//	res.count()
 		
-		//import org.apache.spark.sql.types._
-    //val schema = StructType(SourcSeq.schema.fields)
-		//var dfDeltatx = sqlContext.createDataFrame(mrsSource09,schema )
+		import org.apache.spark.sql.types._
+    val schema = StructType(SourcSeq.schema.fields)
+    val df = mrsSource09.rdd
+		val srcDelta = sqlContext.createDataFrame(df,schema )
+		
+		val res = srcDelta.except(SourcSeq)
+		
+		res.saveAsTable("accelos.adj_trn_temp")
+		
+	
 		
 		//res.write.mode("append").format("orc").option("delimiter", "\t").save("/antuit/sqoopdest/mrs15_adj_trn"); 
 		//dfDeltatx.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/sqoopdest/mrs15_adj_trn");
