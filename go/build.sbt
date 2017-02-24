@@ -7,4 +7,4 @@ libraryDependencies ++= Seq(
    "org.apache.spark" % "spark-sql_2.10" % "1.6.0",
     "org.apache.spark" % "spark-hive_2.10" % "1.6.0",
     "com.microsoft.sqlserver" % "mssql-jdbc" % "6.1.0.jre7",
-    "org.apache.commons" % "commons-csv" % "1.5-SNAPSHOT")
+    "com.databricks" % "spark-csv_2.10" % "0.1")

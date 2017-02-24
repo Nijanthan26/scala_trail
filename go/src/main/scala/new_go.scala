@@ -86,7 +86,8 @@ option("password", "R3@60n1Y$").load()
    
    val updateSeq=addDeltaIncremental(DF1,updatedDf)
    
-   updatedDf.write.mode("append").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
+  // updatedDf.write.mode("append").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
+   updateSeq.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
 				
 	//	res.write.format("orc").saveAsTable(dbtable);  //Change  schema and table name
 
