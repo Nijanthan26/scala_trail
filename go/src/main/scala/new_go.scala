@@ -13,7 +13,7 @@ import org.apache.spark.sql.Dataset
 
 object new_go {
   
-def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame, hiveContext:HiveContext): DataFrame = {
+def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame): DataFrame = {
 		    	val initialDfSha = initialDfShaWithDate//.drop("archive_date")
 				val  delta = deltaDf
 				
