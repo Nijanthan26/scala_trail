@@ -11,7 +11,7 @@ import org.apache.spark.storage.StorageLevel._
 object new_go_fd {
   
 
-    def addDeltaFirstTime(deltaDf: Dataset[Row]): Dataset[Row] = {
+ def addDeltaFirstTime(deltaDf: DataFrame): DataFrame = {
 			
 	            import org.apache.spark.sql.functions._ 
 							deltaDf.withColumn("sequence", monotonically_increasing_id) 
