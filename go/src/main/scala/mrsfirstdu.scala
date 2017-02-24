@@ -31,7 +31,14 @@ object mrsfirstdu {
 		val db = dbtable.substring(0,dbtable.indexOf("."))
 		val sourceTable =  table.substring(6)
     
-		 
+		val mrsSource09 = sqlContext.read.format("jdbc").
+option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001").
+option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
+option("dbtable", "adj_trn").
+option("user", "readonly").
+option("password", "R3@60n1Y$").load() 
+
+		 /*
     val mrsSource09 = sqlContext.read.format("jdbc").options( 
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
@@ -48,7 +55,7 @@ object mrsfirstdu {
   "user" -> "readonly",
   "password" -> "R3@60n1Y$",
   "dbtable" -> sourceTable)).load()
-  /*
+ 
    val mrsSourceMain = sqlContext.load("jdbc", 
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
@@ -67,7 +74,7 @@ object mrsfirstdu {
 						prop.setProperty("user",username)
 					prop.setProperty("password",password)
 	 */
-   val mrsDf1 = mrsSource09.unionAll(mrsSource61)
+   val mrsDf1 = mrsSource09
    
   // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
        
@@ -76,7 +83,7 @@ object mrsfirstdu {
 		
 		
 		//res.write.mode("append").format("orc").option("delimiter", "\t").save("/antuit/sqoopdest/mrs15_adj_trn"); 
-		res.write.format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/sqoopdest/mrs15_adj_trn");
+		res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/sqoopdest/mrs15_adj_trn");
 
   }
   
