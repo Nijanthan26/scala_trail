@@ -39,9 +39,9 @@ option("dbtable", "adj_trn").
 option("user", "readonly").
 option("password", "R3@60n1Y$").load() 
 
-val source=hiveContext.sql("select * from anutit_stage.mrs15_adj_trn")
+//val source=hiveContext.sql("select * from anutit_stage.mrs15_adj_trn")
 
- val SourcSeq = source.drop("sequence")
+// val SourcSeq = source.drop("sequence")
 		 /*
     val mrsSource09 = sqlContext.read.format("jdbc").options( 
   Map(
@@ -78,13 +78,13 @@ val source=hiveContext.sql("select * from anutit_stage.mrs15_adj_trn")
 						prop.setProperty("user",username)
 					prop.setProperty("password",password)
 	 */
-   val mrsDf1 = mrsSource09
+  // val mrsDf1 = mrsSource09
    
   // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
-       
+      mrsSource09.count()
    
-		val res = addDeltaFirstTime(mrsDf1)
-		res.count()
+	//	val res = addDeltaFirstTime(mrsDf1)
+	//	res.count()
 		
 		//import org.apache.spark.sql.types._
     //val schema = StructType(SourcSeq.schema.fields)
