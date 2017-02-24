@@ -13,7 +13,7 @@ import org.apache.spark.sql.Dataset
 
 object new_go {
   
-def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame): DataFrame = {
+def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame, hiveContext:HiveContext): DataFrame = {
 		    	val initialDfSha = initialDfShaWithDate//.drop("archive_date")
 				val  delta = deltaDf
 				
@@ -25,7 +25,7 @@ def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame): Da
 	return deltaDfShaSeq
 	} 
 
-  
+
   def main(args: Array[String])
   {
     
@@ -81,7 +81,7 @@ option("password", "R3@60n1Y$").load()
    
    updatedDf.write.saveAsTable("accelos.udpate_mrs") //for testing
    
-   val updateSeq=addDeltaIncremental(DF1,updatedDf)
+   val updateSeq=addDeltaIncremental(DF1,updatedDf,hiveContext)
    
   // updatedDf.write.mode("append").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
    updateSeq.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
