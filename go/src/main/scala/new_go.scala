@@ -13,20 +13,17 @@ import org.apache.spark.sql.Dataset
 
 object new_go {
   
-  def addDeltaIncremental(initialDfShaWithDate: Dataset[Row], deltaDf: Dataset[Row]): Dataset[Row] = {
-			val initialDfSha = initialDfShaWithDate//.drop("archive_date")
-			val  delta = deltaDf
-			val sparkSession = deltaDf.sparkSession
-
-
-					initialDfShaWithDate.createOrReplaceTempView("initialDfSha")
-					val currentRowNum = sparkSession.sql("select max(sequence) from initialDfSha").collect()(0).getLong(0)
-					delta.createOrReplaceTempView("deltaDfSha")
+def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame, hiveContext:HiveContext): DataFrame = {
+		    	val initialDfSha = initialDfShaWithDate//.drop("archive_date")
+				val  delta = deltaDf
+				
+					initialDfShaWithDate.registerTempTable("initialDfSha")
+					val currentRowNum = hiveContext.sql("select max(sequence) from initialDfSha").collect()(0).getLong(0)
+					delta.registerTempTable("deltaDfSha")
 					import org.apache.spark.sql.functions._ 
 					val deltaDfShaSeq = delta.withColumn("sequence", monotonically_increasing_id + currentRowNum)
-					
 	return deltaDfShaSeq
-	}
+	} 
 
   
   def main(args: Array[String])
