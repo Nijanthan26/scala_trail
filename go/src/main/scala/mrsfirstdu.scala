@@ -93,7 +93,7 @@ val SourcSeq = source.drop("sequence")
 		
 		val res = srcDelta.except(SourcSeq)
 		
-		res.saveAsTable("accelos.adj_trn_temp")
+		res.write.saveAsTable("accelos.adj_trn_temp")
 		
 	
 		
