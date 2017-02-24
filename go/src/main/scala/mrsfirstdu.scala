@@ -94,6 +94,8 @@ val SourcSeq = source.drop("sequence")
 		val res = srcDelta.except(SourcSeq)
 		
 		//res.write.mode("overwrite").format("parquet").saveAsTable("accelos.adj_trn_test");
+		
+		hiveContext.sql("drop table adj")
 		res.write.format("parquet").saveAsTable("adj")
 		
 	
