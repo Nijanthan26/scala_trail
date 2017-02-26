@@ -62,7 +62,7 @@ option("password", "R3@60n1Y$").load()
 		
 		//res.write.format("com.databricks.spark.csv").option("delimiter", "|").saveAsTable("default.upserts_tbl")
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
-		  res.write.format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/databases/testwrite3/"+table);
+		  res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/databases/testwrite3/"+table);
 		//res.write.format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/databases/antuit_stage/"+table+"_"+Date+"_"+Month+"_"+Hour+"_"+min+"_"+second)
 		//res.write.mode("overwrite").format("orc").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
 		
