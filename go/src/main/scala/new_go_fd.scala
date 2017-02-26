@@ -59,7 +59,7 @@ option("password", "R3@60n1Y$").load()
        
    
 		val res = addDeltaFirstTime(mrsDf1)
-    res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quoteMode", "NONE").option("escapeChar","/").save("/antuit/databases/testwrite3/"+table);
+    res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", "").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
 
 
