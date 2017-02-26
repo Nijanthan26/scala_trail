@@ -18,7 +18,7 @@ def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame, hiv
 				val  delta = deltaDf
 				
 					initialDfShaWithDate.registerTempTable("initialDfSha")
-					val currentRowNum = hiveContext.sql("select max(sequence) from initialDfSha").collect()(0)
+					val currentRowNum = hiveContext.sql("select max(sequence) from initialDfSha").collect()(0).getLong(0)
 					delta.registerTempTable("deltaDfSha")
 					import org.apache.spark.sql.functions._ 
 					val deltaDfShaSeq = delta.withColumn("sequence", monotonically_increasing_id + currentRowNum)
