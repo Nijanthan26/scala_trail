@@ -76,11 +76,11 @@ option("password", "R3@60n1Y$").load()
   // mrsSource61.write.mode("append").format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/sqoopdest/"+table);
    
    
-   val newDf=sqlContext.sql("SELECT * FROM accelos."+table) 
+   val newDf=hiveContext.sql("SELECT * FROM accelos."+table) 
    
    val updatedDf=newDf.except(oldDf)
    
-   updatedDf.write.saveAsTable("accelos.udpate_mrs") //for testing
+   updatedDf.write.saveAsTable("accelos.update_mrs") //for testing
    
    val updateSeq=addDeltaIncremental(DF1,updatedDf,hiveContext)
    
