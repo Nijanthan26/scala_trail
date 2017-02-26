@@ -80,7 +80,8 @@ option("password", "R3@60n1Y$").load()
    
    val updatedDf=newDf.except(oldDf)
    
-   updatedDf.write.saveAsTable("accelos.update_mrs") //for testing
+   hiveContext.sql("drop table if exist accelos.update_mrs");
+   updatedDf.write.saveAsTable("accelos.update_mrs") // check for overwrite option on table to avoid drop table logic
    
    val updateSeq=addDeltaIncremental(DF1,updatedDf,hiveContext)
    
