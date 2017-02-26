@@ -69,9 +69,11 @@ option("password", "R3@60n1Y$").load()
       val oldDf=DF1.drop(col(colLength))
    
   // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
+      
+     val mrsSource=mrsSource09.unionAll(mrsSource61)
        
-   mrsSource09.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/sqoopdest/"+table)
-   mrsSource61.write.mode("append").format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/sqoopdest/"+table);
+   mrsSource.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/sqoopdest/"+table)
+  // mrsSource61.write.mode("append").format("com.databricks.spark.csv").option("delimiter", "\u0001").save("/antuit/sqoopdest/"+table);
    
    
    val newDf=sqlContext.sql("SELECT * FROM accelos."+table) 
