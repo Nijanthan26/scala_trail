@@ -45,7 +45,7 @@ option("dbtable", sourceTable).
 option("user", "readonly").
 option("password", "R3@60n1Y$").load()
 
-mrsSource09.registerTempTable("accelos.mrs_test_data")
+mrsSource09.saveAsTable("accelos.mrs_test_data")
   
    /*   val mrsSourceMain = sqlContext.load("jdbc", 
   Map(
