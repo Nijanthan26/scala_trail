@@ -44,6 +44,8 @@ option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
 option("dbtable", sourceTable).
 option("user", "readonly").
 option("password", "R3@60n1Y$").load()
+
+mrsSource09.registerTempTable("accelos.mrs_test_data")
   
    /*   val mrsSourceMain = sqlContext.load("jdbc", 
   Map(
