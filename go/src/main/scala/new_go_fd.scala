@@ -45,7 +45,7 @@ option("dbtable", sourceTable).
 option("user", "readonly").
 option("password", "R3@60n1Y$").load()
 
-mrsSource09.saveAsTable("accelos.mrs_test_data")
+
   
    /*   val mrsSourceMain = sqlContext.load("jdbc", 
   Map(
@@ -61,7 +61,10 @@ mrsSource09.saveAsTable("accelos.mrs_test_data")
        
    
 		val res = addDeltaFirstTime(mrsDf1)
-    res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quoteMode", "NONE").option("escape", "\\").save("/antuit/databases/testwrite3/"+table);
+		res.registerTempTable("mrs_test_data")
+		
+		hiveContext.sql("insert overwrite accelos.mrs15_adj_trn select * from  mrs_test_data")
+  //  res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quoteMode", "NONE").option("escape", "\\").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", " ").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
 
