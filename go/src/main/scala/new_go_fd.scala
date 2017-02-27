@@ -59,7 +59,8 @@ option("password", "R3@60n1Y$").load()
    
   // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
        
-   
+   import hiveContext.implicits._
+   import hiveContext.sql
 		val res = addDeltaFirstTime(mrsDf1)
 		res.registerTempTable("mrs_test_data")
 		
