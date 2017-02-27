@@ -2,7 +2,8 @@
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
-
+import hiveContext.implicits._
+import hiveContext.sql
 import org.apache.spark.sql._
 import org.apache.spark.sql.SQLContext
 import com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -64,7 +65,7 @@ option("password", "R3@60n1Y$").load()
 		val res = addDeltaFirstTime(mrsDf1)
 		res.registerTempTable("mrs_test_data")
 		
-		sqlContext.sql("insert overwrite table accelos."+table+" select * from  mrs_test_data")
+		sqlContext.sql("insert overwrite table `accelos.mrs15_adj_trn` select * from  `mrs_test_data`")
   //  res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quoteMode", "NONE").option("escape", "\\").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", " ").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
