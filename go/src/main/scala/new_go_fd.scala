@@ -26,9 +26,9 @@ object new_go_fd {
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 		val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
     val dbtable = args(0)
-   	val table = dbtable.substring(dbtable.indexOf(".")+1)
-		val db = dbtable.substring(0,dbtable.indexOf("."))
-		val sourceTable =  table.substring(6)
+val table = dbtable.substring(dbtable.indexOf(".")+1)
+val db = dbtable.substring(0,dbtable.indexOf("."))
+val sourceTable =  table.substring(6)
     
 		val mrsSource09 = sqlContext.read.format("jdbc").
 option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001").
@@ -64,7 +64,7 @@ option("password", "R3@60n1Y$").load()
 		//res.registerTempTable("mrs_test_data")
 		
 		//sqlContext.sql("insert overwrite table `accelos.mrs15_adj_trn` select * from  `mrs_test_data`")
-  res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quoteMode", "NONE").option("escape", "\\").save("/antuit/databases/testwrite3/"+table);
+  res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quoteMode", "NONE").option("escape", " ").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", " ").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").save("/antuit/databases/testwrite3/"+table);
 
