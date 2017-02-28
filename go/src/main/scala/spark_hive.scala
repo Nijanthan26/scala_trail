@@ -10,8 +10,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerDriver
 import org.apache.spark.storage.StorageLevel._
 import java.security.MessageDigest
 import org.apache.spark.sql.Dataset
-import org.apache.spark.sql.SQLContext.implicits._
-import org.apache.spark.sql.hive.HiveContext.implicits._
+
 
 object spark_hive {
   
@@ -61,7 +60,7 @@ po_detail_comment_id	int
 ,comment_text	string
 )stored as PARQUET location '/antuit/databases/testwrite3/hj'""")
 
-hiveContext.sql(s"INSERT overwrite TABLE default.parq_test_spark SELECT * FROM source_table")
+sqlContext.sql(s"INSERT overwrite TABLE default.parq_test_spark SELECT * FROM source_table")
 
 
 /*
