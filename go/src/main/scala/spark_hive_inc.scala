@@ -12,11 +12,17 @@ import org.apache.spark.sql.Dataset
 
 object spark_hive_inc {
   
-  def addDeltaFirstTime(deltaDf: DataFrame): DataFrame = {
-			
-	            import org.apache.spark.sql.functions._ 
-							deltaDf.withColumn("sequence", monotonically_increasing_id) 
-	}
+def addDeltaIncremental(initialDfShaWithDate: DataFrame, deltaDf: DataFrame, hiveContext:HiveContext): DataFrame = {
+		    	val initialDfSha = initialDfShaWithDate//.drop("archive_date")
+				val  delta = deltaDf
+				
+					initialDfShaWithDate.registerTempTable("initialDfSha")
+					val currentRowNum = hiveContext.sql("select max(sequence) from initialDfSha").collect()(0).getLong(0)
+					delta.registerTempTable("deltaDfSha")
+					import org.apache.spark.sql.functions._ 
+					val deltaDfShaSeq = delta.withColumn("sequence", monotonically_increasing_id + currentRowNum)
+	return deltaDfShaSeq
+	} 
     
 
   def main(args: Array[String])
@@ -32,22 +38,29 @@ object spark_hive_inc {
 		val sourceTable =  table.substring(6)
     
 		
-		val mrsSource09 = hiveContext.read.format("jdbc").
+				val mrsSource09 = hiveContext.read.format("jdbc").
 option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001").
 option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
 option("dbtable", "adj_trn").
 option("user", "readonly").
 option("password", "R3@60n1Y$").load()
 
-
+   val mrsSource61 = hiveContext.read.format("jdbc").
+option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0002SQLDBFacilityData61_001").
+option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
+option("dbtable", "adj_trn").
+option("user", "readonly").
+option("password", "R3@60n1Y$").load()
 
 import sqlContext.implicits._
 import hiveContext.implicits._
 
-mrsSource09.registerTempTable("source_table")
+val mrsSource=mrsSource09.unionAll(mrsSource61)
+
+mrsSource.registerTempTable("source_table")
 
 hiveContext.sql("""
-create external table default.mrs15_adj_trn_spark_par
+create external table default.mrs_sqoopdest_table
 (
 ID	int
 ,SQLDATETIME	string
@@ -80,33 +93,27 @@ ID	int
 ,FSUPLRPROD	string
 ,FTRACK	string
 ,FMARK	string
-)stored as PARQUET location '/antuit/databases/testwrite3/mrs_par'""")
+)stored as PARQUET location '/antuit/databases/testwrite3/mrs_sqoo_par'""")
 
-hiveContext.sql("INSERT overwrite TABLE default.mrs15_adj_trn_spark_par SELECT * FROM source_table")
+hiveContext.sql("create table dummy1 like default.mrs_sqoopdest_table")
+hiveContext.sql("create table dummy2 like default.mrs15_adj_trn_spark_par")
 
 
-/*
- val hjSource = sqlContext.load("jdbc", 
-  Map(
-  "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
-  "url" -> "jdbc:sqlserver://192.168.100.223:1433;database=AAD",
-  "user" -> "readonly",
-  "password" -> "HJ#ric1!",
-  "dbtable" -> "t_po_detail_comment"))
-*/
-  //val mrsDf1 = mrsSource09.unionAll(mrsSource61)
-   
-  // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
-       
-  // import hiveContext.implicits._
-   //import hiveContext.sql
-	//	val res = addDeltaFirstTime(mrsDf1)
-		//res.registerTempTable("mrs_test_data")
-		
-		//sqlContext.sql("insert overwrite table `accelos.mrs15_adj_trn` select * from  `mrs_test_data`")
-  //res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").option("quoteMode", "NONE").option("escape", "\\").save("/antuit/databases/testwrite3/"+table);
-		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", " ").save("/antuit/databases/testwrite3/"+table);
-		//mrsSource09.write.mode("overwrite").format("parquet").save("/antuit/databases/testwrite3/hj");
+hiveContext.sql("INSERT into TABLE dummy1 SELECT * FROM source_table")
+
+val newDF=hiveContext.sql("select * from dummy1")
+val oldDF=hiveContext.sql("select * from default.mrs15_adj_trn_spark_par")
+
+val updateDF=newDF.except(oldDF)
+
+val udpate=addDeltaIncremental(oldDF,updateDF,hiveContext)
+
+updateDF.registerTempTable("updated_records")
+
+hiveContext.sql("insert into table dummy2 select * from updated_records")
+
+
+hiveContext.sql("insert into table default.mrs15_adj_trn_spark_par select * from dummy1")
 
   }
   
