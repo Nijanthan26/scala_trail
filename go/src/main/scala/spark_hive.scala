@@ -51,7 +51,7 @@ option("password", "R3@60n1Y$").load()
 import sqlContext.implicits._
 import hiveContext.implicits._
 
-val mrsSource=mrsSource09.unionAll("mrsSource61")
+val mrsSource=mrsSource09.unionAll(mrsSource61)
 
 mrsSource.registerTempTable("source_table")
 
