@@ -108,7 +108,7 @@ val oldDF=oldSeqDF.drop("sequence")
 
 val updateDF=newDF.except(oldDF)
 
-val udpate=addDeltaIncremental(oldDF,updateDF,hiveContext)
+val udpate=addDeltaIncremental(oldSeqDF,updateDF,hiveContext)
 
 udpate.registerTempTable("updated_records")
 
