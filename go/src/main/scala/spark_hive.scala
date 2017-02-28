@@ -84,7 +84,7 @@ ID	int
 ,FSUPLRPROD	string
 ,FTRACK	string
 ,FMARK	string
-,sequence string
+,sequence bigint
 )stored as PARQUET location '/antuit/databases/testwrite3/mrs_par'""")
 
 hiveContext.sql("INSERT overwrite TABLE default.mrs15_adj_trn_spark_par SELECT * FROM source_table")
