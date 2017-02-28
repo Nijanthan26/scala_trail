@@ -115,7 +115,7 @@ udpate.registerTempTable("updated_records")
 hiveContext.sql("insert into table dummy2 select * from updated_records")
 
 
-hiveContext.sql("insert into table default.mrs15_adj_trn_spark_par select * from dummy1")
+hiveContext.sql("insert into table default.mrs15_adj_trn_spark_par select * from dummy2")
 
 
   }
