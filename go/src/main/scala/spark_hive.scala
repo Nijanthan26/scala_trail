@@ -40,6 +40,28 @@ option("dbtable", "t_po_detail_comment").
 option("user", "readonly").
 option("password", "HJ#ric1!").load()
 
+import sqlContext.implicits._
+import hiveContext.implicits._
+
+mrsSource09.registerTempTable("source_table")
+
+hiveContext.sql(s"""
+CREATE TABLE default.parq_test_spark (
+po_detail_comment_id	int
+,wh_id	string
+,po_number	string
+,line_number	string
+,item_number	string
+,schedule_number	int
+,sequence	int
+,comment_type	string
+,comment_date	string
+,comment_text	string
+)stored as PARQUET location '/antuit/databases/testwrite3/hj' """)
+
+hiveContext.sql(s"INSERT INTO TABLE default.parq_test_spark SELECT * FROM source_table")
+
+
 /*
  val hjSource = sqlContext.load("jdbc", 
   Map(
@@ -61,7 +83,7 @@ option("password", "HJ#ric1!").load()
 		//sqlContext.sql("insert overwrite table `accelos.mrs15_adj_trn` select * from  `mrs_test_data`")
   //res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").option("quoteMode", "NONE").option("escape", "\\").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", " ").save("/antuit/databases/testwrite3/"+table);
-		mrsSource09.write.mode("overwrite").format("parquet").save("/antuit/databases/testwrite3/hj");
+		//mrsSource09.write.mode("overwrite").format("parquet").save("/antuit/databases/testwrite3/hj");
 
   }
 }
