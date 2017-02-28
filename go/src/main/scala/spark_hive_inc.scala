@@ -1,4 +1,3 @@
-
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
@@ -11,10 +10,9 @@ import org.apache.spark.storage.StorageLevel._
 import java.security.MessageDigest
 import org.apache.spark.sql.Dataset
 
-
-object spark_hive {
+object spark_hive_inc {
   
- def addDeltaFirstTime(deltaDf: DataFrame): DataFrame = {
+  def addDeltaFirstTime(deltaDf: DataFrame): DataFrame = {
 			
 	            import org.apache.spark.sql.functions._ 
 							deltaDf.withColumn("sequence", monotonically_increasing_id) 
@@ -46,9 +44,7 @@ option("password", "R3@60n1Y$").load()
 import sqlContext.implicits._
 import hiveContext.implicits._
 
-
-val res = addDeltaFirstTime(mrsSource09)
-res.registerTempTable("source_table")
+mrsSource09.registerTempTable("source_table")
 
 hiveContext.sql("""
 create external table default.mrs15_adj_trn_spark_par
@@ -84,7 +80,6 @@ ID	int
 ,FSUPLRPROD	string
 ,FTRACK	string
 ,FMARK	string
-,sequence string
 )stored as PARQUET location '/antuit/databases/testwrite3/mrs_par'""")
 
 hiveContext.sql("INSERT overwrite TABLE default.mrs15_adj_trn_spark_par SELECT * FROM source_table")
@@ -114,4 +109,5 @@ hiveContext.sql("INSERT overwrite TABLE default.mrs15_adj_trn_spark_par SELECT *
 		//mrsSource09.write.mode("overwrite").format("parquet").save("/antuit/databases/testwrite3/hj");
 
   }
+  
 }
