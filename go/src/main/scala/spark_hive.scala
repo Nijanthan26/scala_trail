@@ -34,7 +34,7 @@ object spark_hive {
 		val sourceTable =  table.substring(6)
     
 		
-		val mrsSource09 = sqlContext.read.format("jdbc").
+		val mrsSource09 = hiveContext.read.format("jdbc").
 option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001").
 option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
 option("dbtable", "adj_trn").
@@ -45,7 +45,7 @@ import sqlContext.implicits._
 import hiveContext.implicits._
 
 mrsSource09.registerTempTable("source_table")
-
+/*
 hiveContext.sql("""
 create external table default.mrs15_adj_trn_spark_par
 (
@@ -81,7 +81,7 @@ ID	int
 ,FTRACK	string
 ,FMARK	string
 )stored as PARQUET location '/antuit/databases/testwrite3/mrs_par'""")
-
+*/
 hiveContext.sql("INSERT overwrite TABLE default.mrs15_adj_trn_spark_par SELECT * FROM source_table")
 
 
