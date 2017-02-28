@@ -54,7 +54,7 @@ import hiveContext.implicits._
 val mrsSource=mrsSource09.unionAll(mrsSource61)
 
 mrsSource.registerTempTable("source_table")
-
+/*
 hiveContext.sql("""
 create external table default.mrs_sqoopdest_table
 (
@@ -90,8 +90,8 @@ ID	int
 ,FTRACK	string
 ,FMARK	string
 )stored as PARQUET location '/antuit/databases/testwrite3/mrs_sqoo_par'""")
-
-hiveContext.sql("INSERT overwrite TABLE default.mrs_sqoopdest_table SELECT * FROM source_table")
+*/
+hiveContext.sql("INSERT into TABLE default.mrs_sqoopdest_table SELECT * FROM source_table")
 
 val newDF=hiveContext.sql("select * from default.mrs_sqoopdest_table")
 val oldDF=hiveContext.sql("select * from default.mrs15_adj_trn_spark_par")
