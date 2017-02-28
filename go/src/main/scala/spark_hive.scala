@@ -46,7 +46,7 @@ option("password", "R3@60n1Y$").load()
   "url" -> "jdbc:sqlserver://192.168.100.223:1433;database=AAD",
   "user" -> "readonly",
   "password" -> "HJ#ric1!",
-  "dbtable" -> t_po_detail_comment))
+  "dbtable" -> "t_po_detail_comment"))
 
   //val mrsDf1 = mrsSource09.unionAll(mrsSource61)
    
