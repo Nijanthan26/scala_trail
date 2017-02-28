@@ -91,6 +91,10 @@ ID	int
 ,FMARK	string
 )stored as PARQUET location '/antuit/databases/testwrite3/mrs_sqoo_par'""")
 */
+hiveContext.sql("create table dummy1 like default.mrs_sqoopdest_table")
+hiveContext.sql("create table dummy2 like default.mrs_sqoopdest_table")
+
+
 hiveContext.sql("INSERT into TABLE default.mrs_sqoopdest_table SELECT * FROM source_table")
 
 val newDF=hiveContext.sql("select * from default.mrs_sqoopdest_table")
@@ -100,7 +104,8 @@ val updateDF=newDF.except(oldDF)
 
 updateDF.registerTempTable("updated_records")
 
-hiveContext.sql("insert into table default.mrs15_adj_trn_spark_par select * from updated_records")
+hiveContext.sql("insert into table dummy1 select * from updated_records")
+hiveContext.sql("insert into table default.mrs15_adj_trn_spark_par select * from dummy1")
 
 
 /*
