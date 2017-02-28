@@ -34,7 +34,7 @@ object spark_hive {
 		val sourceTable =  table.substring(6)
     
 		
-		val mrsSource09 = sqlContext.read.format("jdbc").
+		val mrsSource09 = hiveContext.read.format("jdbc").
 option("url", "jdbc:sqlserver://192.168.100.223:1433;database=AAD").
 option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
 option("dbtable", "t_po_detail_comment").
