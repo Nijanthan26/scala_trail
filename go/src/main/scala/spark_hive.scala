@@ -62,5 +62,5 @@ option("password", "R3@60n1Y$").load()
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", " ").save("/antuit/databases/testwrite3/"+table);
 		hjSource.write.mode("overwrite").format("parquet").save("/antuit/databases/testwrite3/hj");
 
-  
+  }
 }
