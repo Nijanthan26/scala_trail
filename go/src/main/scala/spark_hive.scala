@@ -41,22 +41,15 @@ option("dbtable", "adj_trn").
 option("user", "readonly").
 option("password", "R3@60n1Y$").load()
 
-   val mrsSource61 = hiveContext.read.format("jdbc").
-option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0002SQLDBFacilityData61_001").
-option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
-option("dbtable", "adj_trn").
-option("user", "readonly").
-option("password", "R3@60n1Y$").load()
+
 
 import sqlContext.implicits._
 import hiveContext.implicits._
 
-val mrsSource=mrsSource09.unionAll(mrsSource61)
+mrsSource09.registerTempTable("source_table")
 
-mrsSource.registerTempTable("source_table")
-/*
 hiveContext.sql("""
-create external table default.mrs_sqoopdest_table
+create external table default.mrs15_adj_trn_spark_par
 (
 ID	int
 ,SQLDATETIME	string
@@ -89,23 +82,9 @@ ID	int
 ,FSUPLRPROD	string
 ,FTRACK	string
 ,FMARK	string
-)stored as PARQUET location '/antuit/databases/testwrite3/mrs_sqoo_par'""")
-*/
-hiveContext.sql("create table dummy1 like default.mrs_sqoopdest_table")
-hiveContext.sql("create table dummy2 like default.mrs_sqoopdest_table")
+)stored as PARQUET location '/antuit/databases/testwrite3/mrs_par'""")
 
-
-hiveContext.sql("INSERT into TABLE default.mrs_sqoopdest_table SELECT * FROM source_table")
-
-val newDF=hiveContext.sql("select * from default.mrs_sqoopdest_table")
-val oldDF=hiveContext.sql("select * from default.mrs15_adj_trn_spark_par")
-
-val updateDF=newDF.except(oldDF)
-
-updateDF.registerTempTable("updated_records")
-
-hiveContext.sql("insert into table dummy1 select * from updated_records")
-hiveContext.sql("insert into table default.mrs15_adj_trn_spark_par select * from dummy1")
+hiveContext.sql("INSERT overwrite TABLE default.mrs15_adj_trn_spark_par SELECT * FROM source_table")
 
 
 /*
