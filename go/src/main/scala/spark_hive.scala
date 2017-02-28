@@ -45,7 +45,7 @@ import sqlContext.implicits._
 import hiveContext.implicits._
 
 mrsSource09.registerTempTable("source_table")
-
+/*
 hiveContext.sql("""
 CREATE TABLE default.parq_test_spark (
 po_detail_comment_id	int
@@ -59,7 +59,7 @@ po_detail_comment_id	int
 ,comment_date	string
 ,comment_text	string
 )stored as PARQUET location '/antuit/databases/testwrite3/hj'""")
-
+*/
 hiveContext.sql("INSERT overwrite TABLE default.parq_test_spark SELECT * FROM source_table")
 
 
