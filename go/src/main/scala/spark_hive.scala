@@ -10,8 +10,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerDriver
 import org.apache.spark.storage.StorageLevel._
 import java.security.MessageDigest
 import org.apache.spark.sql.Dataset
-import sqlContext.implicits._
-import hiveContext.implicits._
+import org.apache.spark.sql.SQLContext.implicits._
+import org.apache.spark.sql.hive.HiveContext.implicits._
 
 object spark_hive {
   
