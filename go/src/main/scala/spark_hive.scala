@@ -32,14 +32,15 @@ object spark_hive {
 		val db = dbtable.substring(0,dbtable.indexOf("."))
 		val sourceTable =  table.substring(6)
     
-		/*
+		
 		val mrsSource09 = sqlContext.read.format("jdbc").
-option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001").
+option("url", "jdbc:sqlserver://192.168.100.223:1433;database=AAD").
 option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
-option("dbtable", sourceTable).
+option("dbtable", "t_po_detail_comment").
 option("user", "readonly").
-option("password", "R3@60n1Y$").load()
-*/
+option("password", "HJ#ric1!").load()
+
+/*
  val hjSource = sqlContext.load("jdbc", 
   Map(
   "driver" -> "com.microsoft.sqlserver.jdbc.SQLServerDriver",
@@ -47,7 +48,7 @@ option("password", "R3@60n1Y$").load()
   "user" -> "readonly",
   "password" -> "HJ#ric1!",
   "dbtable" -> "t_po_detail_comment"))
-
+*/
   //val mrsDf1 = mrsSource09.unionAll(mrsSource61)
    
   // val mrsDf2 = mrsDf1.unionAll(mrsSourceMain)
@@ -60,7 +61,7 @@ option("password", "R3@60n1Y$").load()
 		//sqlContext.sql("insert overwrite table `accelos.mrs15_adj_trn` select * from  `mrs_test_data`")
   //res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "|").option("quoteMode", "NONE").option("escape", "\\").save("/antuit/databases/testwrite3/"+table);
 		//res.write.mode("overwrite").format("com.databricks.spark.csv").option("delimiter", "\u0001").option("quote", " ").save("/antuit/databases/testwrite3/"+table);
-		hjSource.write.mode("overwrite").format("parquet").save("/antuit/databases/testwrite3/hj");
+		mrsSource09.write.mode("overwrite").format("parquet").save("/antuit/databases/testwrite3/hj");
 
   }
 }
