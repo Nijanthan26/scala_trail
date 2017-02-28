@@ -34,33 +34,55 @@ object spark_hive {
 		val sourceTable =  table.substring(6)
     
 		
-		val mrsSource09 = hiveContext.read.format("jdbc").
-option("url", "jdbc:sqlserver://192.168.100.223:1433;database=AAD").
+		val mrsSource09 = sqlContext.read.format("jdbc").
+option("url", "jdbc:sqlserver://us0266sqlsrvmrs001.database.windows.net:1433;databaseName=US0009SQLDBFacilityData09_001").
 option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver").
-option("dbtable", "t_po_detail_comment").
+option("dbtable", "adj_trn").
 option("user", "readonly").
-option("password", "HJ#ric1!").load()
+option("password", "R3@60n1Y$").load()
 
 import sqlContext.implicits._
 import hiveContext.implicits._
 
 mrsSource09.registerTempTable("source_table")
-/*
+
 hiveContext.sql("""
-CREATE TABLE default.parq_test_spark (
-po_detail_comment_id	int
-,wh_id	string
-,po_number	string
-,line_number	string
-,item_number	string
-,schedule_number	int
-,sequence	int
-,comment_type	string
-,comment_date	string
-,comment_text	string
-)stored as PARQUET location '/antuit/databases/testwrite3/hj'""")
-*/
-hiveContext.sql("INSERT overwrite TABLE default.parq_test_spark SELECT * FROM source_table")
+create external table default.mrs15_adj_trn_spark_par
+(
+ID	int
+,SQLDATETIME	string
+,FADJREASON	string
+,FADJTYPE	string
+,FBATCH	string
+,FBDATE	string
+,FCLAIMQTY	bigint
+,FCUSTCODE	string
+,FCUSTLOT	string
+,FEDI	string
+,FEDISNDDTE	string
+,FGROSSWGT	bigint
+,FLOCATION	string
+,FLOT	string
+,FNETWGT	bigint
+,FNOTES	string
+,FOEDI	string
+,FOEDISNDTE	string
+,FOWNER	string
+,FPAL	bigint
+,FPALLETID	string
+,FPRODGROUP	string
+,FPRODUCT	string
+,FQTY	bigint
+,FSEND	string
+,FSEQUENCE	string
+,FSERIAL	string
+,FSTATUS	string
+,FSUPLRPROD	string
+,FTRACK	string
+,FMARK	string
+)stored as PARQUET location '/antuit/databases/testwrite3/mrs_par'""")
+
+hiveContext.sql("INSERT overwrite TABLE default.mrs15_adj_trn_spark_par SELECT * FROM source_table")
 
 
 /*
