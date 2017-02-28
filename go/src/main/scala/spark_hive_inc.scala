@@ -102,18 +102,21 @@ hiveContext.sql("create table dummy2 like default.mrs15_adj_trn_spark_par")
 hiveContext.sql("INSERT into TABLE dummy1 SELECT * FROM source_table")
 
 val newDF=hiveContext.sql("select * from dummy1")
-val oldDF=hiveContext.sql("select * from default.mrs15_adj_trn_spark_par")
+val oldSeqDF=hiveContext.sql("select * from default.mrs15_adj_trn_spark_par")
+
+val oldDF=oldSeqDF.drop("sequence")
 
 val updateDF=newDF.except(oldDF)
 
 val udpate=addDeltaIncremental(oldDF,updateDF,hiveContext)
 
-updateDF.registerTempTable("updated_records")
+udpate.registerTempTable("updated_records")
 
 hiveContext.sql("insert into table dummy2 select * from updated_records")
 
 
 hiveContext.sql("insert into table default.mrs15_adj_trn_spark_par select * from dummy1")
+
 
   }
   
