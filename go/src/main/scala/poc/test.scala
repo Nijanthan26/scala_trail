@@ -17,6 +17,7 @@ import java.sql.DriverManager
 import java.sql.Connection
 import org.apache.spark.sql.types.{StructType,StructField,StringType}
 import org.apache.spark.sql.Row
+import org.apache.spark.sql.functions.udf
 
 object test {
 
@@ -183,8 +184,9 @@ object test {
 
 					import org.apache.spark.sql.functions.udf
 					val arr = udf(() => java.util.UUID.randomUUID().toString())
-					val withUUID = newRecords.withColumn("id", coalesce(df("id"), arr()))
-
+					val withUUID = newRecords.withColumn("id", Coalesce(df("id"), arr()))
+					
+					
 					withUUID.registerTempTable("newRecords")
 
 					hiveContext.sql("insert into table "+targetTable+" select * from newRecords")
