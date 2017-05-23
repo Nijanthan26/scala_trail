@@ -1,7 +1,7 @@
 package poc
 
 object fatable {
-  
+  /*
   def process(targetDF : DataFrame, sourceDF: DataFrame,hiveContext:HiveContext)={
     
     targetDF.registerTempTable("targetTable")
@@ -143,5 +143,5 @@ object fatable {
     
   }
   
-  
+  */
 }
