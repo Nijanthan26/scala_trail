@@ -3,9 +3,9 @@ version := "1.0"
 scalaVersion := "2.10.5"
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" % "spark-core_2.11" % "1.6.0",
-  "org.apache.spark" % "spark-sql_2.11" % "1.6.0",
-  "org.apache.spark" % "spark-hive_2.11" % "1.6.0" ,
+  "org.apache.spark" % "spark-core" % "1.6.0",
+  "org.apache.spark" % "spark-sql" % "1.6.0",
+  "org.apache.spark" % "spark-hive" % "1.6.0" ,
   "org.apache.spark" %% "spark-streaming" % "1.6.0",
   "org.apache.spark" %% "spark-streaming-kafka" % "1.6.0",
   "org.apache.spark" %% "spark-streaming-flume" % "1.6.0",
