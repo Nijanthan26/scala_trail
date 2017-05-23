@@ -20,7 +20,7 @@ import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions.udf
 
 object test {
-
+/*
 	def main(args: Array[String]): Unit = {
 
 			val conf = new SparkConf().setAppName("DeltaAdd")
@@ -126,5 +126,5 @@ object test {
 						hiveContext.sql("insert into table "+targetTable+" select * from FinalLogData")
 
 							}
-
+*/
 							}

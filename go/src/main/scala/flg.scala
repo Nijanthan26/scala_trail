@@ -21,7 +21,7 @@ import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 
 object flg {
-  
+  /*
   
 	def main(args: Array[String]): Unit = {
 	
@@ -173,5 +173,5 @@ newRecords.registerTempTable("newRecords")
 hiveContext.sql("insert into table "+targetTable+" select * from newRecords")
 
 	}
-  
+  */
 }
