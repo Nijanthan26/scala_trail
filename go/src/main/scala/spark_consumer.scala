@@ -14,6 +14,7 @@ import org.apache.spark.Logging
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.SparkContext
 
 object spark_consumer {
   
@@ -25,6 +26,6 @@ object spark_consumer {
           val kafkaStream = KafkaUtils.createStream(ssc, "172.31.6.163:2181","spark-streaming-consumer-group", Map("go_topic" -> 5)).map(_._2)
           kafkaStream.print()
           ssc.start()
-          ssc.awaitTermination()
+          ssc.awaitTermination()  
   
 }
