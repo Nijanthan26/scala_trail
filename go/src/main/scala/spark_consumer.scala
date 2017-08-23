@@ -18,6 +18,10 @@ import org.apache.spark.SparkContext
 
 object spark_consumer {
   
+    def main(args: Array[String]): Unit = {
+    
+ 
+  
           val conf = new SparkConf().setAppName("Streaming")
         	val sc = new SparkContext(conf)
           
@@ -28,4 +32,5 @@ object spark_consumer {
           ssc.start()
           ssc.awaitTermination()  
   
+}
 }
