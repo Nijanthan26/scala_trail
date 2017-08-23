@@ -4,6 +4,9 @@ import org.apache.kafka.clients.producer._
 
 object spark_producer {
   
+  def main(args: Array[String]): Unit = {
+    
+ 
  val  props = new Properties()
 props.put("bootstrap.servers", "172.31.6.163:9092")
 props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
@@ -14,4 +17,5 @@ val record = new ProducerRecord(TOPIC, "1", "hello 1")
 producer.send(record)
 producer.close()
   
+}
 }
