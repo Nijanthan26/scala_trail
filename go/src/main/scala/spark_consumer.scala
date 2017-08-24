@@ -27,7 +27,8 @@ object spark_consumer {
           
           val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
           val ssc = new StreamingContext(sc, Seconds(10))
-          val kafkaStream = KafkaUtils.createStream(ssc, "172.31.6.163:2181","spark-streaming-consumer-group", Map("go_topic" -> 5)).map(_._2)
+          //val kafkaStream = KafkaUtils.createStream(ssc, "172.31.6.163:2181","spark-streaming-consumer-group", Map("go_topic" -> 5)).map(_._2)
+          val kafkaStream = KafkaUtils.createStream(ssc, "172.31.15.81:2181","spark-streaming-consumer-group", Map("test-mysql-t1" -> 5)).map(_._2)
           kafkaStream.print()
           ssc.start()
           ssc.awaitTermination()  
