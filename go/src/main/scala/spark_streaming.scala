@@ -16,7 +16,7 @@ import org.apache.spark.sql.Row
 import org.apache.log4j.{ Level, Logger }
 import io.confluent.kafka.serializers.KafkaAvroDecoder
 
-object ConsumerTest extends App {
+object spark_streaming extends App {
 
   val conf = new SparkConf().setAppName("kafka-consumer")
   val sc = new SparkContext(conf)
