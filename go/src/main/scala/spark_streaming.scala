@@ -28,6 +28,7 @@ object spark_streaming extends App {
   //    val kafkaStream = KafkaUtils.createStream(ssc, "172.31.6.163:2181", "spark-streaming-consumer-group", Map("go_topic" -> 5)).map(_._2)
   //    println("kafkaStream.print()")
   //    kafkaStream.print()
+  
 
   val kafkaParams = Map[String, String]("metadata.broker.list" -> "localhost:9092", "schema.registry.url" -> "http://localhost:8081", "auto.offset.reset" -> "smallest")
   val topics = "test-mysql-t1"
