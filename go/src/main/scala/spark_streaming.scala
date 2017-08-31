@@ -31,7 +31,7 @@ object spark_streaming extends App {
   
 
   val kafkaParams = Map[String, String]("metadata.broker.list" -> "localhost:9092", "schema.registry.url" -> "http://localhost:8081", "auto.offset.reset" -> "smallest")
-  val topics = "test-mysql-t1"
+  val topics = "go_mysql_test"
   val topicSet = Set(topics)
   val messages = KafkaUtils.createDirectStream[Object, Object, KafkaAvroDecoder, KafkaAvroDecoder](ssc, kafkaParams, topicSet).map(_._2)
   messages.print()
