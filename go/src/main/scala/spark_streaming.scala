@@ -14,7 +14,7 @@ import org.apache.spark.Logging
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
 import org.apache.log4j.{ Level, Logger }
-//import io.confluent.kafka.serializers.KafkaAvroDecoder
+import io.confluent.kafka.serializers.KafkaAvroDecoder
 
 object spark_streaming extends App {
 
