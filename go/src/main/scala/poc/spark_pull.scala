@@ -28,6 +28,10 @@ object spark_pull {
 		option("password", "abdul").load()
 		
 		SourceData.show
+		
+		SourceData.registerTempTable("source_table")
+		
+		hiveContext.sql("insert into default.sqooptable select * from source_table")
   
   }
   
