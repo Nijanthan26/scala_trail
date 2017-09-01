@@ -37,7 +37,13 @@ object spark_pull {
 		
 		val updates=SourceData.except(DL)
 		
-		updates.show
+		updates.registerTempTable("update_table")
+		
+		hiveContext.sql("create table default.dummy like default.sqooptable")
+		hiveContext.sql("insert into default.dummy select * from update_table")
+		
+		hiveContext.sql("insert into default.sqooptable select * from update_table")
+		hiveContext.sql("drop table if exists default.dummy")
   
   }
   
