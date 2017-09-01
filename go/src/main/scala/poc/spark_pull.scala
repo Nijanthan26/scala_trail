@@ -27,11 +27,17 @@ object spark_pull {
 		option("user", "testuser").
 		option("password", "abdul").load()
 		
-		SourceData.show
+		//SourceData.show
 		
-		SourceData.registerTempTable("source_table")
+		//SourceData.registerTempTable("source_table")
 		
-		hiveContext.sql("insert into default.sqooptable select * from source_table")
+		//hiveContext.sql("insert into default.sqooptable select * from source_table")
+		
+		val DL = hiveContext.sql("select * from default.sqooptable")
+		
+		val updates=SourceData.except(DL)
+		
+		updates.show
   
   }
   
