@@ -37,11 +37,12 @@ object spark_streaming extends App {
   messages.print()
 
   val lines = messages.map(data => data.toString)
-  val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+  
   lines.foreachRDD(rdd => {
     //  val sqlContext = SQLContextSingleton.getInstance(jsonRDD.sparkContext)
 
     if (rdd.count != 0) {
+      val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
       val data = hiveContext.read.json(rdd)
       data.printSchema()
       data.show()
