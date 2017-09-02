@@ -20,11 +20,12 @@ import io.confluent.kafka.serializers.KafkaAvroDecoder
 
 object SparkStreaming {
   
+   def main(args: Array[String]): Unit = {
   val conf = new SparkConf().setAppName("kafka-consumer")
   val sc = new SparkContext(conf)
   val ssc = new StreamingContext(sc, Seconds(20))
   
-    val kafkaParams = Map[String, String]("metadata.broker.list" -> "172.31.6.118:9092", "schema.registry.url" -> "http://localhost:8081", "auto.offset.reset" -> "smallest")
+  val kafkaParams = Map[String, String]("metadata.broker.list" -> "172.31.6.118:9092", "schema.registry.url" -> "http://localhost:8081", "auto.offset.reset" -> "smallest")
   val topics = "mysql-stream-table1"
   val topicSet = Set(topics)
   val messages = KafkaUtils.createDirectStream[Object, Object, KafkaAvroDecoder, KafkaAvroDecoder](ssc, kafkaParams, topicSet).map(_._2)
@@ -51,4 +52,5 @@ object SparkStreaming {
   ssc.start()
   ssc.awaitTermination()
   
+}
 }
