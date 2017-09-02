@@ -6,7 +6,6 @@ resolvers ++= Seq(
   Resolver.sonatypeRepo("public"),
   "Confluent Maven Repo" at "http://packages.confluent.io/maven/"
 )
-
 libraryDependencies ++= Seq(
     "io.confluent" % "kafka-avro-serializer" % "1.0"
 )
