@@ -47,12 +47,20 @@ object spark_streaming extends App {
       data.printSchema()
       data.show()
       data.registerTempTable("sourceData")
-      hiveContext.sql("INSERT INTO TABLE test.avro_test SELECT * FROM sourceData")
+      hiveContext.sql("INSERT INTO TABLE default.kafka_demo_1 SELECT * FROM sourceData")
+      messages.foreachRDD { rdd =>
+      val offsetRanges = rdd.asInstanceOf[HasOffsetRanges].offsetRanges
+
+      // some time later, after outputs have completed
+       messages.asInstanceOf[CanCommitOffsets].commitAsync(offsetRanges)
+      }
     } else {
       println("RDD is Empty")
     }
 
   })
+  
+  
 
   ssc.start()
   ssc.awaitTermination()
