@@ -21,7 +21,7 @@ import io.confluent.kafka.serializers.KafkaAvroDecoder
 import org.apache.spark.streaming.kafka010.{ CanCommitOffsets, HasOffsetRanges }
 import org.apache.spark.TaskContext
 
-object ConsumerTest extends App {
+object SparkStreaming extends App {
 
   val conf = new SparkConf().setAppName("kafka-consumer")
   val sc = new SparkContext(conf)
