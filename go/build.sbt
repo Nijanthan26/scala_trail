@@ -13,10 +13,10 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" % "spark-core_2.11" % "2.1.0",
-  "org.apache.spark" % "spark-sql_2.11" % "2.1.0",
-  "org.apache.spark" % "spark-hive_2.11" % "2.1.0",
-  "org.apache.spark" % "spark-streaming_2.11" % "2.1.0",
+  "org.apache.spark" % "spark-core_2.11" % "1.6.0",
+  "org.apache.spark" % "spark-sql_2.11" % "1.6.0",
+  "org.apache.spark" % "spark-hive_2.11" % "1.6.0",
+  "org.apache.spark" % "spark-streaming_2.11" % "1.6.0",
   "org.apache.spark" % "spark-streaming-kafka-0-10_2.11" % "2.1.0",
   "org.apache.spark" % "spark-streaming-kafka_2.11" % "1.6.0",
   "com.microsoft.sqlserver" % "mssql-jdbc" % "6.1.0.jre7",
