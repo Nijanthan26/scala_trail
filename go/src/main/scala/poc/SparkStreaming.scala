@@ -21,8 +21,8 @@ import io.confluent.kafka.serializers.KafkaAvroDecoder
 import org.apache.spark.streaming.kafka010.{ CanCommitOffsets, HasOffsetRanges }
 import org.apache.spark.TaskContext
 
-object SparkStreaming extends App {
-
+object SparkStreaming  {
+def main(args: Array[String]): Unit = {
   val conf = new SparkConf().setAppName("kafka-consumer")
   val sc = new SparkContext(conf)
   val ssc = new StreamingContext(sc, Seconds(20))
@@ -72,4 +72,5 @@ object SparkStreaming extends App {
   ssc.start()
   ssc.awaitTermination()
 
+}
 }
