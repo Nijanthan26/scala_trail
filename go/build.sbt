@@ -1,6 +1,6 @@
 name := "billhistCDT"
 version := "1.0"
-scalaVersion := "2.11.8"
+scalaVersion := "2.10.5"
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("public"),
