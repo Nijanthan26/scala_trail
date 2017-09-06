@@ -10,28 +10,31 @@ import scala.reflect.runtime.universe
 import java.util.Calendar
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.hive.HiveContext
-import org.apache.spark.sql.SparkSession
 
 
 
-object sparkMultiThread {
+
+//object sparkMultiThread {
+//  
+//  def getMinID(Table:String){
+//
+//			var minID=0
+//					try{
+//
+//					minID=sparkSession.sql("select count(*) from antuit_prod."+Table).collect()(0).getInt(0)
+//					println("|||| Table "+Table+" Count :"+minID+"")
+//
+//					}catch{
+//					case _ : Throwable => println("|||| Source Table Connection Issue :"+Table+"")
+//					}
+//
+//	}
   
-  def getMinID(Table:String){
-
-			var minID=0
-					try{
-
-					minID=sparkSession.sql("select count(*) from antuit_prod."+Table).collect()(0).getInt(0)
-					println("|||| Table "+Table+" Count :"+minID+"")
-
-					}catch{
-					case _ : Throwable => println("|||| Source Table Connection Issue :"+Table+"")
-					}
-
-	}
-  
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
+    
+        val conf = new SparkConf().setAppName("DeltaAdd")
+        val sc = new SparkContext(conf)
+        val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
     val spark = SparkSession.builder().appName("Spark Multi Threading Example").master("local").getOrCreate()
 
@@ -57,9 +60,9 @@ object sparkMultiThread {
     for (a <- 0 until 20) {
       val thread = new Thread {
         override def run {
-          spark.sparkContext.parallelize(getMinID("acl_c_doc_man"))
-          spark.sparkContext.parallelize(getMinID("mrs_customer_delta"))
-          spark.sparkContext.parallelize(getMinID("mrs_inv_mst_delta"))
+          spark.sparkContext.parallelize(sparkSession.sql("select count(*) from antuit_prod.acl_c_doc_man"))
+          spark.sparkContext.parallelize(sparkSession.sql("select count(*) from antuit_prod.mrs_customer_delta"))
+          spark.sparkContext.parallelize(sparkSession.sql("select count(*) from antuit_prod.mrs_inv_mst_delta"))
 //          spark.sparkContext.parallelize(Array("jjj", "kkk", "lll")).toDF().write.format("parquet").mode("overWrite").save("/tmp/vgiri/file4")
 //          spark.sparkContext.parallelize(Array("mmm", "nnn", "ooo")).toDF().write.format("parquet").mode("overWrite").save("/tmp/vgiri/file5")
 //          spark.sparkContext.parallelize(Array("ppp", "qqq", "rrr")).toDF().write.format("parquet").mode("overWrite").save("/tmp/vgiri/file6")
