@@ -17,12 +17,12 @@ import org.apache.spark.sql.SparkSession
 
 object sparkMultiThread {
   
-  def getMinID(Table:String,hiveContext:HiveContext){
+  def getMinID(Table:String){
 
 			var minID=0
 					try{
 
-					minID=hiveContext.sql("select count(*) from antuit_prod."+Table).collect()(0).getInt(0)
+					minID=sparkSession.sql("select count(*) from antuit_prod."+Table).collect()(0).getInt(0)
 					println("|||| Table "+Table+" Count :"+minID+"")
 
 					}catch{
@@ -57,9 +57,9 @@ object sparkMultiThread {
     for (a <- 0 until 20) {
       val thread = new Thread {
         override def run {
-          spark.sparkContext.parallelize(getMinID("acl_c_doc_man",hiveContext))
-          spark.sparkContext.parallelize(getMinID("mrs_customer_delta", hiveContext))
-          spark.sparkContext.parallelize(getMinID("mrs_inv_mst_delta",hiveContext))
+          spark.sparkContext.parallelize(getMinID("acl_c_doc_man"))
+          spark.sparkContext.parallelize(getMinID("mrs_customer_delta"))
+          spark.sparkContext.parallelize(getMinID("mrs_inv_mst_delta"))
 //          spark.sparkContext.parallelize(Array("jjj", "kkk", "lll")).toDF().write.format("parquet").mode("overWrite").save("/tmp/vgiri/file4")
 //          spark.sparkContext.parallelize(Array("mmm", "nnn", "ooo")).toDF().write.format("parquet").mode("overWrite").save("/tmp/vgiri/file5")
 //          spark.sparkContext.parallelize(Array("ppp", "qqq", "rrr")).toDF().write.format("parquet").mode("overWrite").save("/tmp/vgiri/file6")
