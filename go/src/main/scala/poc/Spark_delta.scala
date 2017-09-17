@@ -12,7 +12,7 @@ import org.apache.spark.SparkContext
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.sql.functions.lit
 
-object spark_pull {
+object Spark_delta {
   
   def main(args: Array[String]): Unit = {
     
@@ -34,22 +34,22 @@ object spark_pull {
 		//SourceData.show
 		
 		// Register the dataframe as temporary table, so that we can query the data in dataframe.
-		SourceData.registerTempTable("source_table")
+		//SourceData.registerTempTable("source_table")
 		
-		hiveContext.sql("insert into default.sqooptable select * from source_table")
+		//hiveContext.sql("insert into default.sqooptable select * from source_table")
 		
 		//select data from hive table in Datalake using Hive Context
-		//val DL = hiveContext.sql("select * from default.sqooptable")
+		val DL = hiveContext.sql("select * from default.sqooptable")
 		
 		// Perform except between two different dataframe ( source df & datalake Df) to get the updated and newly added records in source df
-		//val updates=SourceData.except(DL)
+		val updates=SourceData.except(DL)
 		
-		//updates.registerTempTable("update_table")
+		updates.registerTempTable("update_table")
 		
-//		hiveContext.sql("create table default.dummy like default.sqooptable")
-//		hiveContext.sql("insert into default.dummy select * from update_table")
-//		hiveContext.sql("insert into default.sqooptable select * from update_table")
-//		hiveContext.sql("drop table if exists default.dummy")
+		hiveContext.sql("create table default.dummy like default.sqooptable")
+		hiveContext.sql("insert into default.dummy select * from update_table")
+		hiveContext.sql("insert into default.sqooptable select * from update_table")
+		hiveContext.sql("drop table if exists default.dummy")
   
   }
   
